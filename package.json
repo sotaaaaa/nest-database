@@ -1,6 +1,6 @@
 {
   "name": "@sotaaaaa/nest-database",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "private": false,
   "description": "NestJS - Multi database module",
   "keywords": [
@@ -75,6 +75,7 @@
     "@nestjs/platform-express": "^9.2.1",
     "js-yaml": "^4.1.0",
     "mongoose": "6.5.2",
+    "mustache": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.7"

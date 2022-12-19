@@ -1,8 +1,8 @@
 import * as yaml from 'js-yaml';
 import * as fs from 'fs';
+import * as mustache from 'mustache';
 
 import { DynamicModule, Global, Logger, Module } from '@nestjs/common';
-import { DatabaseModuleOptions } from 'src/types';
 import { MongooseConfigs } from './types';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -10,7 +10,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({})
 export class MongooseConnectsModule {
   static getConfigs(path: string): MongooseConfigs[] {
-    const rootConfigs = yaml.load(fs.readFileSync(path, 'utf8')) as any;
+    const raw = fs.readFileSync(path, 'utf8');
+    const custom = mustache.render(raw, process.env, {}, ['${', '}']);
+    const rootConfigs = (yaml.load(custom) as any) || {};
 
     if (!rootConfigs) {
       Logger.log("[NestDatabase] Can't find root configs");
